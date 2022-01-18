@@ -1,0 +1,6 @@
+{
+  "cSpell.words": ["flowtype", "mealstogo"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
