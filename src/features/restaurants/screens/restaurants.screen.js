@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import styled from "styled-components/native";
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import { Searchbar } from "react-native-paper";
+import { ActivityIndicator, Colors } from "react-native-paper";
 
 import { RestaurantsInfoCard } from "../components/restaurant-info-card.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -22,20 +23,34 @@ export const RestaurantsScreen = () => {
   const { isLoading, restaurants, error } = useContext(RestaurantsContext);
   return (
     <SafeArea>
-      <SearchContainer>
-        <Searchbar />
-      </SearchContainer>
-      <RestaurantList
-        data={restaurants}
-        renderItem={({ item }) => {
-          return (
-            <Spacer position="bottom" size="large">
-              <RestaurantsInfoCard restaurant={item} />
-            </Spacer>
-          );
-        }}
-        keyExtractor={(item) => item.name}
-      />
+      {isLoading ? (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator
+            size={50}
+            animation={true}
+            color={Colors.blue300}
+          />
+        </View>
+      ) : (
+        <>
+          <SearchContainer>
+            <Searchbar />
+          </SearchContainer>
+          <RestaurantList
+            data={restaurants}
+            renderItem={({ item }) => {
+              return (
+                <Spacer position="bottom" size="large">
+                  <RestaurantsInfoCard restaurant={item} />
+                </Spacer>
+              );
+            }}
+            keyExtractor={(item) => item.name}
+          />
+        </>
+      )}
     </SafeArea>
   );
 };
