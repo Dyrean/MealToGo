@@ -2,19 +2,19 @@ import styled from "styled-components/native";
 import WebView from "react-native-webview";
 
 export const CompactImage = styled.Image`
-  border-radius: ${(props) => props.theme.space[3]};
-  width: ${(props) => props.theme.sizes[4]};
-  height: ${(props) => props.theme.sizes[4]};
+  border-radius: 10px;
+  width: 120px;
+  height: 100px;
 `;
 
 export const CompactWebview = styled(WebView)`
-  border-radius: ${(props) => props.theme.space[3]};
-  width: ${(props) => props.theme.sizes[4]};
-  height: ${(props) => props.theme.sizes[4]};
+  border-radius: 10px;
+  width: 120px;
+  height: 100px;
 `;
 
 export const Item = styled.View`
-  padding: ${(props) => props.theme.space[3]};
-  max-width: ${(props) => props.theme.sizes[4]};
+  padding: 10px;
+  max-width: 120px;
   align-items: center;
 `;
