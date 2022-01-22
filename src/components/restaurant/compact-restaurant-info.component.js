@@ -10,11 +10,8 @@ import {
 
 const isAndroid = Platform.OS === "android";
 
-export const CompactRestaurantInfo = ({
-  restaurant,
-  notInFavoritesBar = true,
-}) => {
-  const Image = isAndroid && notInFavoritesBar ? CompactWebview : CompactImage;
+export const CompactRestaurantInfo = ({ restaurant, isMap = true }) => {
+  const Image = isAndroid && isMap ? CompactWebview : CompactImage;
   return (
     <Item>
       <Image source={{ uri: restaurant.photos[0] }} />

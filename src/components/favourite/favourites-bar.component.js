@@ -30,10 +30,7 @@ export const FavouritesBar = ({ favourites, onNavigate }) => {
                   })
                 }
               >
-                <CompactRestaurantInfo
-                  notInFavoritesBar={false}
-                  restaurant={restaurant}
-                />
+                <CompactRestaurantInfo isMap={false} restaurant={restaurant} />
               </TouchableOpacity>
             </Spacer>
           );
