@@ -12,6 +12,7 @@ export const AccountBackground = styled.ImageBackground.attrs({
   flex: 1;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 `;
 
 export const AccountCover = styled.View`
@@ -60,4 +61,10 @@ export const RememberBox = styled(Checkbox.Item).attrs({
   labelStyle: colors.text.primary,
 })`
   width: ${widthInput}px;
+`;
+
+export const AnimationWrapper = styled.View`
+  width: 80%;
+  height: 30%;
+  padding: ${(props) => props.theme.space[3]};
 `;
