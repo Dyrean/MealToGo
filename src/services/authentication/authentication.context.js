@@ -1,10 +1,8 @@
 import React, { useState, createContext, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  loginRequest,
-  registerRequest,
-  signOutRequest,
-} from "./authentication.service";
+
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { loginRequest, registerRequest } from "./authentication.service";
 
 export const AuthenticationContext = createContext();
 
@@ -12,6 +10,13 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+
+  onAuthStateChanged(getAuth(), (usr) => {
+    if (usr) {
+      setUser(usr);
+    }
+    setIsLoading(false);
+  });
 
   const loadUser = async () => {
     try {
@@ -73,16 +78,10 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   const onLogOut = () => {
     setIsLoading(true);
-    signOutRequest()
-      .then(() => {
-        setUser(null);
-        saveUser(null);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setError(err);
-        setIsLoading(false);
-      });
+    signOut(getAuth());
+    setUser(null);
+    saveUser(null);
+    setIsLoading(false);
   };
 
   return (
