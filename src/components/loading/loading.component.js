@@ -1,20 +1,26 @@
 import React from "react";
 import styled from "styled-components/native";
-import { ActivityIndicator } from "react-native-paper";
+
+import LottieView from "lottie-react-native";
 
 const LoadingContainer = styled.View`
   flex: 1;
+  height: 50%;
   justify-content: center;
   align-items: center;
+  padding: ${(props) => props.theme.space[3]};
 `;
 
-export const Loading = ({
-  size,
-  color = `${(props) => props.theme.colors.bg.seconday}`,
-}) => {
+export const Loading = ({ size, color = "tomato" }) => {
   return (
     <LoadingContainer>
-      <ActivityIndicator size={size} color={color} animation={true} />
+      <LottieView
+        key="animation"
+        autoPlay
+        loop
+        resizeMode="cover"
+        source={require("../../../assets/loading.json")}
+      />
     </LoadingContainer>
   );
 };

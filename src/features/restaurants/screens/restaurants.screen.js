@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react";
 import { TouchableOpacity } from "react-native";
 
-import { RestaurantsInfoCard } from "../components/restaurant-info-card.component";
+import { FadeInView } from "../../../components/animations/fade.animation";
+import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { FavouritesBar } from "../../../components/favourite/favourites-bar.component";
 import { Loading } from "../../../components/loading/loading.component";
-import { SafeArea } from "../../../components/utility/safe-area.component";
+
+import { RestaurantsInfoCard } from "../components/restaurant-info-card.component";
 import { Search } from "../components/search.component";
 
 import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
@@ -46,7 +48,9 @@ export const RestaurantsScreen = ({ navigation }) => {
                       })
                     }
                   >
-                    <RestaurantsInfoCard restaurant={item} />
+                    <FadeInView>
+                      <RestaurantsInfoCard restaurant={item} />
+                    </FadeInView>
                   </TouchableOpacity>
                 </Spacer>
               );

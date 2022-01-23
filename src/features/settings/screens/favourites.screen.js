@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 
+import { FadeInView } from "../../../components/animations/fade.animation";
 import { FavouritesContext } from "../../../services/favourites/favourites.context";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -30,7 +31,9 @@ export const FavouritesScreen = ({ navigation }) => {
                   })
                 }
               >
-                <RestaurantsInfoCard restaurant={item} />
+                <FadeInView>
+                  <RestaurantsInfoCard restaurant={item} />
+                </FadeInView>
               </TouchableOpacity>
             </Spacer>
           );
@@ -39,7 +42,7 @@ export const FavouritesScreen = ({ navigation }) => {
       />
     </SafeArea>
   ) : (
-    <NoFavouritesArea>
+    <NoFavouritesArea style={{ marginTop: -10 }}>
       <Text>No favourites yet</Text>
     </NoFavouritesArea>
   );
