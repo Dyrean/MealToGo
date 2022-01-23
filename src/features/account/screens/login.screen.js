@@ -1,4 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { TextInput } from "react-native-paper";
 
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -11,12 +12,21 @@ import {
   AuthInput,
   Title,
   ErrorContainer,
+  RememberBox,
 } from "../components/account.styles";
 
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { onLogin, error } = useContext(AuthenticationContext);
+  const [rememberMe, setRememberMe] = useState(false);
+  const { onLogin, error, isLoading } = useContext(AuthenticationContext);
+  const [showPassword, setShowPassword] = useState(true);
+  const [passwordIcon, setPasswordIcon] = useState("eye");
+
+  useEffect(() => {
+    setPasswordIcon(showPassword ? "eye-off" : "eye");
+  }, [showPassword]);
+
   return (
     <AccountBackground>
       <AccountCover />
@@ -28,18 +38,33 @@ export const LoginScreen = ({ navigation }) => {
           textContentType="emailAddress"
           keyboardType="email-address"
           onChangeText={(mail) => setEmail(mail)}
+          left={<TextInput.Icon name="close" onPress={() => setEmail("")} />}
         />
         <Spacer size="large">
           <AuthInput
             label="Password"
             value={password}
             textContentType="password"
-            secureTextEntry={true}
-            secure
+            secureTextEntry={showPassword}
             onChangeText={(p) => setPassword(p)}
-            maxLength={30}
+            left={
+              <TextInput.Icon name="close" onPress={() => setPassword("")} />
+            }
+            right={
+              <TextInput.Icon
+                name={passwordIcon}
+                onPress={() => setShowPassword(!showPassword)}
+              />
+            }
           />
         </Spacer>
+        <RememberBox
+          label="Remember Me?"
+          status={rememberMe ? "checked" : "unchecked"}
+          onPress={(c) => {
+            setRememberMe(!rememberMe);
+          }}
+        />
         {error && (
           <ErrorContainer size="large">
             <Text variant="error">{error.message}</Text>
@@ -49,7 +74,9 @@ export const LoginScreen = ({ navigation }) => {
           <AuthButton
             icon="login-variant"
             mode="contained"
-            onPress={() => onLogin(email, password)}
+            disabled={isLoading}
+            loading={isLoading}
+            onPress={() => onLogin(email, password, rememberMe)}
           >
             Login
           </AuthButton>

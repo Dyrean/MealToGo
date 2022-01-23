@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { colors } from "../../../infrastructure/theme/colors";
-import { Button, TextInput } from "react-native-paper";
+import { Button, TextInput, Checkbox } from "react-native-paper";
 import { Text } from "../../../components/typography/text.component";
 import { Dimensions } from "react-native";
 
@@ -38,6 +38,7 @@ export const AuthButton = styled(Button).attrs({
 export const AuthInput = styled(TextInput).attrs({
   mode: "outlined",
   autoCapitalize: "none",
+  activeOutlineColor: colors.brand.primary,
 })`
   width: ${widthInput}px;
 `;
@@ -52,4 +53,11 @@ export const ErrorContainer = styled.View`
   align-self: center;
   margin-top: ${(props) => props.theme.space[2]};
   margin-bottom: ${(props) => props.theme.space[2]};
+`;
+
+export const RememberBox = styled(Checkbox.Item).attrs({
+  color: colors.brand.primary,
+  labelStyle: colors.text.primary,
+})`
+  width: ${widthInput}px;
 `;
