@@ -1,11 +1,12 @@
 import camelize from "camelize";
+import { host, isMock } from "../../utils/env";
 
 export const restaurantsRequest = (location) => {
-  return fetch(
-    `http://localhost:5001/mealstogo-97791/us-central1/placesNearby?location=${location}`
-  ).then((res) => {
-    return res.json();
-  });
+  return fetch(`${host}/placesNearby?location=${location}&${isMock}`).then(
+    (res) => {
+      return res.json();
+    }
+  );
 };
 
 export const restaurantsTransform = ({ results = [] }) => {
