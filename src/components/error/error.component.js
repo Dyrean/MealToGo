@@ -18,7 +18,7 @@ export const Error = () => {
         key="animation"
         autoPlay
         loop
-        resizeMode="cover"
+        resizeMode="contain"
         source={require("../../../assets/error-animation.json")}
       />
     </LoadingContainer>
