@@ -11,7 +11,7 @@ const LoadingContainer = styled.View`
   padding: ${(props) => props.theme.space[3]};
 `;
 
-export const Loading = () => {
+export const Error = () => {
   return (
     <LoadingContainer>
       <LottieView
@@ -19,7 +19,7 @@ export const Loading = () => {
         autoPlay
         loop
         resizeMode="cover"
-        source={require("../../../assets/loading-animation.json")}
+        source={require("../../../assets/error-animation.json")}
       />
     </LoadingContainer>
   );
