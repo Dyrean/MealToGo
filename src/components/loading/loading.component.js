@@ -3,6 +3,9 @@ import styled from "styled-components/native";
 
 import LottieView from "lottie-react-native";
 
+import { SafeArea } from "../utility/safe-area.component";
+import { Text } from "../typography/text.component";
+
 const LoadingContainer = styled.View`
   flex: 1;
   height: 50%;
@@ -13,14 +16,17 @@ const LoadingContainer = styled.View`
 
 export const Loading = () => {
   return (
-    <LoadingContainer>
-      <LottieView
-        key="animation"
-        autoPlay
-        loop
-        resizeMode="cover"
-        source={require("../../../assets/loading-animation.json")}
-      />
-    </LoadingContainer>
+    <SafeArea>
+      <LoadingContainer>
+        <LottieView
+          key="animation"
+          autoPlay
+          loop
+          resizeMode="cover"
+          source={require("../../../assets/loading-animation.json")}
+        />
+        <Text>Loading...</Text>
+      </LoadingContainer>
+    </SafeArea>
   );
 };

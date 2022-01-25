@@ -3,10 +3,10 @@ import styled from "styled-components/native";
 
 import LottieView from "lottie-react-native";
 
-import { SafeArea } from "../utility/safe-area.component";
-import { Text } from "../typography/text.component";
+import { SafeArea } from "../../../components/utility/safe-area.component";
+import { Text } from "../../../components/typography/text.component";
 
-const ErrorContainer = styled.View`
+const SuccessContainer = styled.View`
   flex: 1;
   height: 50%;
   justify-content: center;
@@ -14,19 +14,19 @@ const ErrorContainer = styled.View`
   padding: ${(props) => props.theme.space[3]};
 `;
 
-export const Error = () => {
+export const CheckoutSuccessScren = () => {
   return (
     <SafeArea>
-      <ErrorContainer>
+      <SuccessContainer>
         <LottieView
           key="animation"
           autoPlay
           loop
           resizeMode="cover"
-          source={require("../../../assets/error-animation.json")}
+          source={require("../../../../assets/checkout-success.json")}
         />
-        <Text>Loading...</Text>
-      </ErrorContainer>
+        <Text variant="label">Success!</Text>
+      </SuccessContainer>
     </SafeArea>
   );
 };
