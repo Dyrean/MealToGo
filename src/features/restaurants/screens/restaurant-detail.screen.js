@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { List } from "react-native-paper";
 import { ScrollView } from "react-native";
 
 import { RestaurantsInfoCard } from "../components/restaurant-info-card.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
+import { Spacer } from "../../../components/spacer/spacer.component";
 
-export const RestaurantDetailScreen = ({ route }) => {
+import { OrderButton } from "../components/restaurant-list.styles";
+
+import { CartContext } from "../../../services/cart/cart.context";
+
+export const RestaurantDetailScreen = ({ navigation, route }) => {
   const [breakfastExpanded, setBreakfastExpanded] = useState(false);
   const [lunchExpanded, setLauncherExpanded] = useState(false);
   const [dinnerExpanded, setDinnerExpanded] = useState(false);
   const [drinkExpanded, setDrinkExpanded] = useState(false);
+
+  const { addToCart } = useContext(CartContext);
+
   const color = "tomato";
   const { restaurant } = route.params;
   return (
@@ -18,6 +26,7 @@ export const RestaurantDetailScreen = ({ route }) => {
       <ScrollView>
         <List.Accordion
           title="Breakfast"
+          titleStyle={{ color: color }}
           left={(props) => (
             <List.Icon {...props} color={color} icon="bread-slice" />
           )}
@@ -29,6 +38,7 @@ export const RestaurantDetailScreen = ({ route }) => {
         </List.Accordion>
         <List.Accordion
           title="Lunch"
+          titleStyle={{ color: color }}
           left={(props) => (
             <List.Icon {...props} color={color} icon="hamburger" />
           )}
@@ -41,6 +51,7 @@ export const RestaurantDetailScreen = ({ route }) => {
         </List.Accordion>
         <List.Accordion
           title="Dinner"
+          titleStyle={{ color: color }}
           left={(props) => (
             <List.Icon {...props} color={color} icon="food-variant" />
           )}
@@ -53,6 +64,7 @@ export const RestaurantDetailScreen = ({ route }) => {
         </List.Accordion>
         <List.Accordion
           title="Drink"
+          titleStyle={{ color: color }}
           left={(props) => <List.Icon {...props} color={color} icon="cup" />}
           expanded={drinkExpanded}
           onPress={() => setDrinkExpanded(!drinkExpanded)}
@@ -64,6 +76,18 @@ export const RestaurantDetailScreen = ({ route }) => {
           <List.Item title="Fanta" />
         </List.Accordion>
       </ScrollView>
+      <Spacer position="bottom" size="large">
+        <OrderButton
+          icon="cash-usd"
+          mode="contained"
+          onPress={() => {
+            addToCart({ item: "special", price: 1499 }, restaurant);
+            navigation.navigate("Checkout");
+          }}
+        >
+          Order Special Only 14.99!
+        </OrderButton>
+      </Spacer>
     </SafeArea>
   );
 };
