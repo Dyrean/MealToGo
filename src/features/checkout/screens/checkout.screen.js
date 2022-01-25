@@ -18,9 +18,20 @@ import {
   ClearButton,
 } from "../components/checkout.styles.js";
 
+import { payRequest } from "../../../services/checkout/checkout.service";
+
 export const CheckoutScreen = () => {
   const { cart, restaurant, sum, clearCart } = useContext(CartContext);
   const [name, setName] = useState("");
+  const [card, setCard] = useState(null);
+
+  const onPay = () => {
+    if (!card || !card.id) {
+      // TODO: error handling
+      return;
+    }
+    payRequest(card.id, sum, name);
+  };
 
   if (!cart.length || !restaurant) {
     return (
@@ -56,14 +67,12 @@ export const CheckoutScreen = () => {
           }}
         />
         <Spacer position="top" size="large">
-          {name.length > 0 && <CreditCardInput name={name} />}
+          {name.length > 0 && (
+            <CreditCardInput name={name} onSuccess={setCard} />
+          )}
         </Spacer>
         <Spacer position="top" size="xxl" />
-        <PayButton
-          icon="cash-usd"
-          mode="contained"
-          onPress={() => console.log("pressed")}
-        >
+        <PayButton icon="cash-usd" mode="contained" onPress={onPay}>
           Pay
         </PayButton>
         <Spacer position="top" size="large" />
