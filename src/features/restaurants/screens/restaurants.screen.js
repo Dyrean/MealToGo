@@ -41,7 +41,9 @@ export const RestaurantsScreen = ({ navigation }) => {
               onNavigate={navigation.navigate}
             />
           )}
-          {hasError && <Error />}
+          {hasError && (
+            <Error locationError={locationError} restaurantsError={error} />
+          )}
           {!hasError && (
             <RestaurantList
               data={restaurants}

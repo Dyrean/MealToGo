@@ -25,7 +25,7 @@ export const Loading = () => {
           resizeMode="cover"
           source={require("../../../assets/loading-animation.json")}
         />
-        <Text>Loading...</Text>
+        <Text variant="label">Loading</Text>
       </LoadingContainer>
     </SafeArea>
   );

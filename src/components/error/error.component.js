@@ -14,7 +14,7 @@ const ErrorContainer = styled.View`
   padding: ${(props) => props.theme.space[3]};
 `;
 
-export const Error = () => {
+export const Error = ({ locationError, restaurantsError }) => {
   return (
     <SafeArea>
       <ErrorContainer>
@@ -25,7 +25,8 @@ export const Error = () => {
           resizeMode="cover"
           source={require("../../../assets/error-animation.json")}
         />
-        <Text>Loading...</Text>
+        <Text variant="error">{JSON.stringify(locationError)}</Text>
+        <Text variant="error">{JSON.stringify(restaurantsError)}</Text>
       </ErrorContainer>
     </SafeArea>
   );

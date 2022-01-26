@@ -13,7 +13,7 @@ const Map = styled(MapView)`
   width: 100%;
 `;
 
-export const MapComponent = ({ navigation }) => {
+export const MapScreen = ({ navigation }) => {
   const { location } = useContext(LocationContext);
   const { restaurants = [] } = useContext(RestaurantsContext);
 
@@ -27,9 +27,22 @@ export const MapComponent = ({ navigation }) => {
 
     setLatDelta(northeastLat - southwestLat);
   }, [location, viewport]);
-
+  if (!location) {
+    return (
+      <>
+        <Search />
+        <Map
+          region={{
+            latitude: 0,
+            longitude: 0,
+          }}
+        />
+      </>
+    );
+  }
   return (
     <>
+      <Search />
       <Map
         region={{
           latitude: lat,
@@ -59,29 +72,6 @@ export const MapComponent = ({ navigation }) => {
           );
         })}
       </Map>
-    </>
-  );
-};
-
-export const MapScreen = ({ navigation }) => {
-  const { location } = useContext(LocationContext);
-  if (!location) {
-    return (
-      <>
-        <Search />
-        <Map
-          region={{
-            latitude: 0,
-            longitude: 0,
-          }}
-        />
-      </>
-    );
-  }
-  return (
-    <>
-      <Search />
-      <MapComponent navigation={navigation} />;
     </>
   );
 };

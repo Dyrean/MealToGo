@@ -6,4 +6,5 @@ const liveHost = "";
 export const isAndroid = Platform.OS === "android";
 export const isDevopment = process.env.NODE_ENV === "development";
 export const isMock = true;
+export const isLocalMock = true;
 export const host = !isDevopment || isAndroid ? liveHost : localHost;

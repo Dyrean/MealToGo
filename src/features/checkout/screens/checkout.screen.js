@@ -20,6 +20,7 @@ import {
 } from "../components/checkout.styles.js";
 
 import { payRequest } from "../../../services/checkout/checkout.service";
+import { isLocalMock } from "../../../utils/env";
 
 export const CheckoutScreen = ({ navigation }) => {
   const { cart, restaurant, sum, clearCart } = useContext(CartContext);
@@ -73,7 +74,14 @@ export const CheckoutScreen = ({ navigation }) => {
             </Spacer>
             <List.Section>
               {cart.map(({ item, price }) => {
-                return <List.Item title={`${item} - ${price / 100}`} />;
+                return (
+                  <List.Item
+                    key={`${item}-${cart.length}-${Math.ceil(
+                      Math.random() * (cart.length + 5)
+                    )}`}
+                    title={`${item} - ${price / 100}`}
+                  />
+                );
               })}
             </List.Section>
             <Text>Total: {sum / 100}</Text>
@@ -86,25 +94,24 @@ export const CheckoutScreen = ({ navigation }) => {
               setName(t);
             }}
           />
-          <Spacer position="top" size="large">
-            {name.length > 0 && (
-              <CreditCardInput
-                name={name}
-                onSuccess={setCard}
-                onError={() => {
-                  navigation.navigate("CheckoutError", {
-                    error: "Something went wrong processing your credit card",
-                  });
-                }}
-              />
-            )}
-          </Spacer>
-          <Spacer position="top" size="xxl" />
+          <Spacer position="top" size="large" />
+          {name.length > 0 && (
+            <CreditCardInput
+              name={name}
+              onSuccess={setCard}
+              onError={() => {
+                navigation.navigate("CheckoutError", {
+                  error: "Something went wrong processing your credit card",
+                });
+              }}
+            />
+          )}
+          <Spacer position="top" size="large" />
           <PayButton
             disabled={isLoading}
             icon="cash-usd"
             mode="contained"
-            onPress={onPay}
+            onPress={isLocalMock ? null : onPay}
           >
             Pay
           </PayButton>
