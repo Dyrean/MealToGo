@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { ScrollView } from "react-native";
-import { List } from "react-native-paper";
+import { List, Divider } from "react-native-paper";
 
 import { RestaurantsInfoCard } from "../../restaurants/components/restaurant-info-card.component";
 import { CreditCardInput } from "../components/credit-card.component";
@@ -73,12 +73,10 @@ export const CheckoutScreen = ({ navigation }) => {
               <Text>Your Order</Text>
             </Spacer>
             <List.Section>
-              {cart.map(({ item, price }) => {
+              {cart.map(({ item, price }, i) => {
                 return (
                   <List.Item
-                    key={`${item}-${cart.length}-${Math.ceil(
-                      Math.random() * (cart.length + 5)
-                    )}`}
+                    key={`${item}-${i}`}
                     title={`${item} - ${price / 100}`}
                   />
                 );
@@ -86,6 +84,8 @@ export const CheckoutScreen = ({ navigation }) => {
             </List.Section>
             <Text>Total: {sum / 100}</Text>
           </Spacer>
+          <Spacer position="top" size="large" />
+          <Divider />
           <NameInput
             label="Cardholder Name"
             mode="outlined"
