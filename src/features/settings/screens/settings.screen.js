@@ -10,6 +10,7 @@ import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
+import { colors } from "../../../infrastructure/theme/colors";
 
 const SettingsItem = styled(List.Item)`
   padding: ${(props) => props.theme.space[2]};
@@ -40,7 +41,11 @@ export const SettingsScreen = ({ navigation }) => {
         <Spacer position="top" size="large" />
         <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
           {!photo ? (
-            <Avatar.Icon size={180} icon="human" backgroundColor="tomato" />
+            <Avatar.Icon
+              size={180}
+              icon="human"
+              backgroundColor={colors.brand.primary}
+            />
           ) : (
             <Avatar.Image
               size={180}
